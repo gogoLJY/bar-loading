@@ -3,6 +3,7 @@
     <div
       v-show="visible"
       class="loading-wapper fixed-wrapper flex-wrapper"
+      :class="wrapperClass"
       :style="wrapperStyle"
     >
       <div class="loading-content">
@@ -31,6 +32,8 @@ export default {
       background: "",
       icon: "",
       text: "",
+      customClass: "",
+      fullscreen: true,
       visible: true,
       error: false,
       success: true,
@@ -43,6 +46,14 @@ export default {
     };
   },
   computed: {
+    wrapperClass() {
+      return [
+        this.customClass,
+        {
+          "is-fullscreen": this.fullscreen
+        }
+      ];
+    },
     wrapperStyle() {
       let style = {};
       if (this.background) {
@@ -81,6 +92,10 @@ export default {
       }, speed);
     },
 
+    setText(text) {
+      this.text = text;
+    },
+
     handleAfterLeave() {
       this.$emit("after-leave");
     },
@@ -95,6 +110,11 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.parent-no-scroll {
+  overflow: hidden !important;
+}
+</style>
 <style lang="scss" scoped>
 $bg_color: rgba(20, 18, 36, 0.8);
 $content_bg: rgba(255, 255, 255, 0.9);
@@ -106,9 +126,12 @@ $border_color: rgba(84, 63, 255, 0.9);
 }
 
 .fixed-wrapper {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
+  &.is-fullscreen {
+    position: fixed;
+  }
 }
 
 .flex-wrapper {
