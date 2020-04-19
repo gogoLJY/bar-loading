@@ -16,7 +16,8 @@ export default {
   computed: {
     barConfig() {
       return {
-        show: this.loading
+        show: this.loading,
+        progressContainer: ["lovelove"]
       };
     }
   },
@@ -24,7 +25,7 @@ export default {
     // this.$barLoading.start();
     setTimeout(() => {
       // this.$barLoading.done();
-      this.loading = false;
+      // this.loading = false;s
     }, 3000);
   }
 };

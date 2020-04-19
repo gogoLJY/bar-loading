@@ -15,11 +15,19 @@ npm install --save bar-loading
 
 2. Add the plugin into your app:
 
-```javascript
+```js
 import Vue from "vue";
 import BarLoading from "bar-loading";
 
 Vue.use(BarLoading);
+```
+
+```js
+this.$barLoading.start(options);
+
+when complete
+
+this.$barLoading.done();
 ```
 
 Or use the directives and components directly:
@@ -31,31 +39,19 @@ import { barLoading } from "bar-loading";
 Vue.directive("loading", barLoading);
 ```
 
-# Usage
-
-```js
-this.$barLoading.start(options);
-
-when complete
-
-this.$barLoading.done();
-```
-
-### Options
-
-| Property   | Description                      |  type   |     default     |
-| ---------- | -------------------------------- | :-----: | :-------------: |
-| background | loading wrapper background-image | String  |       ""        |
-| icon       | loading content icon             | String  |       ""        |
-| text       | loading text                     | String  | "正在加载中..." |
-| visible    | show loading                     | Boolean |      true       |
-
-### Other options
-
 ```html
 <div v-barLoading="options"></div>
 ```
 
-| Property | Description  |  type   | default |
-| -------- | ------------ | :-----: | :-----: |
-| show     | show loading | Boolean |  false  |
+### Options
+
+| Property          | Description                         |  type   |     default     |
+| ----------------- | ----------------------------------- | :-----: | :-------------: |
+| background        | loading wrapper background-image    | String  |       ""        |
+| icon              | loading content icon                | String  |       ""        |
+| text              | loading text                        | String  | "正在加载中..." |
+| visible           | show loading                        | Boolean |      true       |
+| lock              | make the wrapper no scroll          | Boolean |      false      |
+| show              | show loading, only use in directive | Boolean |      false      |
+| progressContainer | progress container class            |  Array  |       []        |
+| customClass       | loading wrapper class               | String  |       ''        |

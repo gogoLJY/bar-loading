@@ -17,3 +17,7 @@ export function eventListener(instance, event, callback, once = false) {
     instance.$on(event, handler)
   }
 }
+
+export function isUrl(str) {
+  return /(?:jpeg|jpg|png|gif|webp)/i.test(str)
+}

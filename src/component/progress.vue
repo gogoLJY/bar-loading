@@ -1,6 +1,6 @@
 <template>
   <div class="progress-bar">
-    <div class="progress-bar-outer" :style="outerStyle">
+    <div class="progress-bar-outer">
       <div class="progress-bar-inner" :style="innerStyle" />
     </div>
   </div>
@@ -14,16 +14,10 @@ export default {
       default: 0
     },
     strokeWidth: {
-      type: Number,
-      default: 10
+      type: Number
     }
   },
   computed: {
-    outerStyle() {
-      return {
-        height: this.strokeWidth + "px"
-      };
-    },
     innerStyle() {
       let style = {};
       style.width = this.percent + "%";
@@ -41,6 +35,7 @@ export default {
 .progress-bar-outer {
   position: relative;
   width: 100%;
+  height: 10px;
   border-radius: 7px;
   background-image: linear-gradient(to right, #3e69d8, #4d97e4);
   overflow: hidden;

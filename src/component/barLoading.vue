@@ -10,7 +10,7 @@
         <div class="loading-icon-box no-select" v-if="icon">
           <img :src="icon" alt="" class="no-event" />
         </div>
-        <div class="progress-container">
+        <div class="progress-container" :class="progressContainer">
           <Progress :percent="percent" />
         </div>
         <span class="loading-text" v-if="text">{{ text }}</span>
@@ -21,6 +21,7 @@
 
 <script>
 import Progress from "./progress.vue";
+import { isUrl } from "../lib/utils";
 
 export default {
   name: "BarLoading",
@@ -35,8 +36,7 @@ export default {
       customClass: "",
       fullscreen: true,
       visible: true,
-      error: false,
-      success: true,
+      progressContainer: [],
       percent: 0,
       waitPercent: 90,
       finishPercent: 100,
@@ -56,8 +56,10 @@ export default {
     },
     wrapperStyle() {
       let style = {};
-      if (this.background) {
+      if (isUrl(this.background)) {
         style.backgroundImage = `url(${this.background})`;
+      } else {
+        style.backgroundColor = this.background;
       }
       return style;
     }
@@ -117,8 +119,6 @@ export default {
 </style>
 <style lang="scss" scoped>
 $bg_color: rgba(20, 18, 36, 0.8);
-$content_bg: rgba(255, 255, 255, 0.9);
-$border_color: rgba(84, 63, 255, 0.9);
 
 .loading-fade-enter,
 .loading-fade-leave-active {
@@ -163,9 +163,8 @@ $border_color: rgba(84, 63, 255, 0.9);
   }
   .loading-text {
     display: inline-block;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 22px;
+    font-size: 14px;
+    margin-top: 20px;
   }
 }
 .progress-container {

@@ -17,7 +17,8 @@ export const defaultOpitons = {
   fullscreen: true,
   body: true, // 插入到body
   lock: false, // 是否锁定屏幕
-  customClass: '' // 自定义类名
+  customClass: '', // 自定义类名
+  progressContainer: []
 }
 
 const eventTypeArr = [eventType.start, eventType.done]
