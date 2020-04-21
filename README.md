@@ -30,6 +30,12 @@ when complete
 this.$barLoading.done();
 ```
 
+4. Use the `v-barLoading` directive:
+
+```html
+<div v-barLoading="options" class="wrapper"></div>
+```
+
 Or use the directives and components directly:
 
 ```javascript
@@ -40,7 +46,7 @@ Vue.directive("loading", barLoading);
 ```
 
 ```html
-<div v-barLoading="options"></div>
+<div v-loading="options"></div>
 ```
 
 ### Options
