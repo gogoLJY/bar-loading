@@ -5,15 +5,15 @@
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/PanJiaChen/vue-countTo)
 
-### Getting started
+## Getting started
 
-1. Install the plugin:
+**1**、Install the plugin:
 
 ```
 npm install --save bar-loading
 ```
 
-2. Add the plugin into your app:
+**2**、Add the plugin into your app:
 
 ```js
 import Vue from "vue";
@@ -30,7 +30,7 @@ when complete
 this.$barLoading.done();
 ```
 
-4. Use the `v-barLoading` directive:
+**3**、Use the `v-barLoading` directive:
 
 ```html
 <div v-barLoading="options" class="wrapper"></div>
