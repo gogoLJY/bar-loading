@@ -8,7 +8,8 @@ const BarLoadingConstructor = Vue.extend(BarLoading)
 let BarLoadingInstance = null
 const eventType = {
   start: 'start',
-  done: 'done'
+  done: 'done',
+  hide: 'hide'
 }
 
 export const defaultOpitons = {
@@ -21,7 +22,7 @@ export const defaultOpitons = {
   progressContainer: []
 }
 
-const eventTypeArr = [eventType.start, eventType.done]
+const eventTypeArr = [eventType.start, eventType.done, eventType.hide]
 
 
 BarLoadingConstructor.prototype.close = function() {
@@ -50,10 +51,10 @@ BarLoadingConstructor.prototype.complete = function() {
 }
 
 const Loading = function(options) {
-  if (BarLoadingInstance) {
-    if (options.type === eventType.done) {
-      BarLoadingInstance.complete()
-    }
+  if (options.type === eventType.hide) {
+    BarLoadingInstance && BarLoadingInstance.close()
+  } else if (options.type === eventType.done) {
+    BarLoadingInstance && BarLoadingInstance.complete()
   } else {
     options = Object.assign({}, defaultOpitons, options)
     let parent = options.body ? document.body : options.target
@@ -76,7 +77,7 @@ const Loading = function(options) {
 }
 
 eventTypeArr.forEach(type => {
-  Loading[type] = function(options = {}) {
+  Loading[type] = (options = {}) =>{
     options.type = type
     return Loading(options)
   }

@@ -28,6 +28,10 @@ this.$barLoading.start(options);
 when complete
 
 this.$barLoading.done();
+
+or hidden directly
+
+this.$barLoading.hide();
 ```
 
 **3**、Use the `v-barLoading` directive:
