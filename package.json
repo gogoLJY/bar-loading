@@ -1,7 +1,7 @@
 {
   "name": "bar-loading",
   "description": "vue bar loading, It's a loading component",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": "leogogo.ljy <leogogo.ljy@gmail.com>",
   "license": "MIT",
   "private": false,
