@@ -7,7 +7,7 @@ const BarLoadingConstructor = Vue.extend(BarLoading)
 
 let BarLoadingInstance = null
 const eventType = {
-  start: 'start',
+  show: 'show',
   done: 'done',
   hide: 'hide'
 }
@@ -22,7 +22,7 @@ export const defaultOpitons = {
   progressContainer: []
 }
 
-const eventTypeArr = [eventType.start, eventType.done, eventType.hide]
+const eventTypeArr = [eventType.show, eventType.done, eventType.hide]
 
 BarLoadingConstructor.prototype.close = function() {
   eventListener(this, 'after-leave', () => {

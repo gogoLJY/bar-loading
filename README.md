@@ -5,15 +5,17 @@
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/PanJiaChen/vue-countTo)
 
-## Getting started
+## Installation
 
-**1**、Install the plugin:
+```bash
+# yarn
+yarn add bar-loading
 
+# npm
+npm install bar-loading
 ```
-npm install --save bar-loading
-```
 
-**2**、Add the plugin into your app:
+## Usage
 
 ```js
 import Vue from "vue";
@@ -23,7 +25,7 @@ Vue.use(BarLoading);
 ```
 
 ```js
-this.$barLoading.start(options);
+this.$barLoading.show(options);
 
 when complete
 
@@ -34,7 +36,7 @@ or hidden directly
 this.$barLoading.hide();
 ```
 
-**3**、Use the `v-barLoading` directive:
+### As directive
 
 ```html
 <div v-barLoading="options" class="wrapper"></div>
@@ -44,13 +46,9 @@ Or use the directives and components directly:
 
 ```javascript
 import Vue from "vue";
-import { barLoading } from "bar-loading";
+import { BarLoadingDirective, BarLoadingComponent } from "bar-loading";
 
-Vue.directive("loading", barLoading);
-```
-
-```html
-<div v-loading="options"></div>
+Vue.directive("loading", BarLoadingDirective);
 ```
 
 ### Options

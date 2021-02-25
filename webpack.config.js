@@ -1,50 +1,44 @@
-var path = require('path')
-var { CleanWebpackPlugin } = require('clean-webpack-plugin')
-var webpack = require('webpack')
+'use strict';
+
+const webpack = require('webpack')
+const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
-  entry: './docs-src/main.js',
+  mode: 'production',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bar-loading.min.js',
-    library: 'BarLoading',
+    library: "BarLoading",
     libraryTarget: 'umd',
+    libraryExport: 'default',
     umdNamedDefine: true
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['.js', '.vue', '.json']
+  },
+  externals: {
+    'vue': {
+      commonjs: 'vue',
+      commonjs2: 'vue',
+      amd: 'vue',
+      root: 'Vue'
+    },
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ],
-      },
-      {
-        test: /\.sass$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader?indentedSyntax'
-        ],
-      },
-      {
         test: /\.vue$/,
         loader: 'vue-loader',
+        exclude: /node_modules/,
         options: {
           loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
             'scss': [
               'vue-style-loader',
               'css-loader',
@@ -56,7 +50,6 @@ module.exports = {
               'sass-loader?indentedSyntax'
             ]
           }
-          // other vue-loader options go here
         }
       },
       {
@@ -65,53 +58,42 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
+        test: /\.css/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: false,
+            }
+          },
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ],
+      },
     ]
   },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['.js', '.vue', '.json']
-  },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#cheap-module-eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.entry = './src/index.js',
-  module.exports.externals = {
-    'vue': 'Vue',
-  }
-  module.exports.devtool = '#cheap-module-source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
+  plugins: [
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'vue-loading.css',
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
+    new VueLoaderPlugin(),
+  ],
+  stats: {
+    modules: false,
+    children: false,
+    entrypoints: false,
+  }
 }

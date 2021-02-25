@@ -1,7 +1,11 @@
 import BarLoading from './main'
 import { directive } from './directive'
+import BarLoadingComponent from './component/barLoading.vue'
 
-export const barLoading = directive
+export {
+  BarLoadingDirective,
+  BarLoadingComponent,
+}
 
 export default {
   install(Vue) {
