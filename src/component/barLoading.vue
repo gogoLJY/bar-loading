@@ -82,6 +82,7 @@ export default {
         speed = this.finishSpeed;
         waitPercent = this.finishPercent;
       }
+
       this.timer = setInterval(() => {
         if (this.percent >= waitPercent) {
           this.clearTimer();

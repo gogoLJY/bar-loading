@@ -1,4 +1,5 @@
 var path = require('path')
+var { CleanWebpackPlugin } = require('clean-webpack-plugin')
 var webpack = require('webpack')
 
 module.exports = {
@@ -76,7 +77,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ['.js', '.vue', '.json']
   },
   devServer: {
     historyApiFallback: true,
@@ -86,13 +87,18 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#cheap-module-eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.entry = './src/index.js',
+  module.exports.externals = {
+    'vue': 'Vue',
+  }
+  module.exports.devtool = '#cheap-module-source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

@@ -5,7 +5,7 @@ import {
 } from './lib/utils'
 import {
   defaultOpitons
-} from './index'
+} from './main'
 
 const maskConstructor = Vue.extend(BarLoading)
 
